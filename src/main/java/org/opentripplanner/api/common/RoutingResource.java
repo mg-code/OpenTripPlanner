@@ -346,7 +346,13 @@ public abstract class RoutingResource {
      */
     @QueryParam("disableRemainingWeightHeuristic")
     protected Boolean disableRemainingWeightHeuristic;
-    
+
+    /**
+     * The comma-separated list of allowed GTFS route types.
+     */
+    @QueryParam("routeTypes")
+    private String routeTypes;
+
     /* 
      * somewhat ugly bug fix: the graphService is only needed here for fetching per-graph time zones. 
      * this should ideally be done when setting the routing context, but at present departure/
@@ -566,6 +572,9 @@ public abstract class RoutingResource {
 
         if (disableRemainingWeightHeuristic != null)
             request.disableRemainingWeightHeuristic = disableRemainingWeightHeuristic;
+
+        if(routeTypes != null)
+            request.setRouteTypes(routeTypes);
 
         //getLocale function returns defaultLocale if locale is null
         request.locale = ResourceBundleSingleton.INSTANCE.getLocale(locale);
