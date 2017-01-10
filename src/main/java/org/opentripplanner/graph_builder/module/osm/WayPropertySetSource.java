@@ -50,6 +50,9 @@ public interface WayPropertySetSource {
             case "norway":
                 retval = new NorwayWayPropertySetSource();
                 break;
+            case "latvia":
+                retval = new LatviaWayPropertySetSource();
+                break;
             default:
                 throw new IllegalArgumentException(String.format("Unknown osmWayPropertySet: '%s'",
                         type));
