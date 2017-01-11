@@ -20,6 +20,7 @@ import org.onebusaway.gtfs.model.AgencyAndId;
 import org.onebusaway.gtfs.model.Trip;
 import org.opentripplanner.routing.core.RoutingContext;
 import org.opentripplanner.routing.core.State;
+import org.opentripplanner.routing.core.TraverseMode;
 import org.opentripplanner.routing.graph.Edge;
 import org.opentripplanner.routing.graph.Vertex;
 import org.slf4j.Logger;
@@ -118,6 +119,19 @@ public class GraphPath {
      */
     public long getEndTime() {
         return states.getLast().getTimeSeconds();
+    }
+
+    public int getLongestWaitingTime() {
+        int result = 0;
+        for (State state : states) {
+            if (state.getBackMode() != TraverseMode.LEG_SWITCH) continue;
+
+            int waitingTime = state.getTimeDeltaSeconds();
+            if (waitingTime > result) {
+                result = waitingTime;
+            }
+        }
+        return result;
     }
 
     /**

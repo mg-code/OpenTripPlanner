@@ -177,6 +177,7 @@ public class GraphPathFinder {
 
             paths.addAll(newPaths.stream()
                     .filter(path -> path.getDuration() < options.maxHours * 60 * 60)
+                    //.filter(path -> path.getLongestWaitingTime() < 2 * 60 * 60)
                     .collect(Collectors.toList()));
 
             LOG.debug("we have {} paths", paths.size());
